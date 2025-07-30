@@ -20,6 +20,7 @@ public class MenuController implements Initializable {
     ObservableList<Car> carsList;
     GridPane cardGrid;
     final int cols = 5;
+    private Car carBeingEdited = null;
 
     @FXML private Button closeBtn;
     @FXML private AnchorPane mainLayout;
@@ -55,7 +56,7 @@ public class MenuController implements Initializable {
         cardGrid.getChildren().clear();
         for (int i = 0; i < carsList.size(); i++) {
             Car car = carsList.get(i);
-            VBox card = CarCardBuilder.buildCard(car, this::deleteData, this::editData);
+            VBox card = CarCardBuilder.buildCard(car, this::deleteData, () -> loadCarIntoForm(car));
 
             int col = i % cols;
             int row = i / cols;
@@ -82,17 +83,24 @@ public class MenuController implements Initializable {
         if (!CarValidator.isValid(carName, carMake, strCarYear)) return;
 
         int carYear = Integer.parseInt(strCarYear);
-        int id = carsList.isEmpty() ? 1 : carsList.get(carsList.size() - 1).getId() + 1;
 
-        Car newCar = new Car(id, carName, carMake, carYear);
-        carsList.add(newCar);
+        if (carBeingEdited == null) {
+            // Creating a new car
+            int id = carsList.isEmpty() ? 1 : carsList.get(carsList.size() - 1).getId() + 1;
+            Car newCar = new Car(id, carName, carMake, carYear);
+            carsList.add(newCar);
+        } else {
+            // Editing an existing car
+            carBeingEdited.setName(carName);
+            carBeingEdited.setMake(carMake);
+            carBeingEdited.setYear(carYear);
+            carBeingEdited = null;
+        }
+
         CarDataService.saveCars(carsList);
-
-        carNameInput.clear();
-        carMakeInput.clear();
-        carYearInput.clear();
-
+        clearForm();
         generateCards();
+
         mainMenu.setVisible(true);
         createSection.setVisible(false);
     }
@@ -104,8 +112,20 @@ public class MenuController implements Initializable {
         generateCards();
     }
 
-    public void editData(int id) {
+    private void loadCarIntoForm(Car car) {
+        carBeingEdited = car;
+        carNameInput.setText(car.getName());
+        carMakeInput.setText(car.getMake());
+        carYearInput.setText(String.valueOf(car.getYear()));
 
+        mainMenu.setVisible(false);
+        createSection.setVisible(true);
+    }
+
+    public void clearForm() {
+        carNameInput.clear();
+        carMakeInput.clear();
+        carYearInput.clear();
     }
 
     public boolean confirmationAlert(String action) {
