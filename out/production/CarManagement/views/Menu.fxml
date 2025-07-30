@@ -10,20 +10,20 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainLayout" prefHeight="631.0" prefWidth="1098.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MenuController">
+<AnchorPane fx:id="mainLayout" prefHeight="631.0" prefWidth="1098.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MenuController">
    <children>
-      <AnchorPane layoutX="6.0" layoutY="7.0" prefHeight="26.0" prefWidth="1098.0" styleClass="header" stylesheets="@style.css" AnchorPane.bottomAnchor="606.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane layoutX="6.0" layoutY="7.0" prefHeight="26.0" prefWidth="1098.0" styleClass="header" stylesheets="@../resources/style.css" AnchorPane.bottomAnchor="606.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button fx:id="closeBtn" layoutX="1065.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="33.0" styleClass="exit-btn" stylesheets="@style.css" text="X" />
-            <Button fx:id="minimizeBtn" layoutX="1032.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="33.0" styleClass="minimize-btn" stylesheets="@style.css" text="_" />
-            <Label layoutX="10.0" layoutY="5.0" text="Car Management" />
+            <Button fx:id="closeBtn" layoutX="1065.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="33.0" styleClass="exit-btn" stylesheets="@../resources/style.css" text="X" />
+            <Button fx:id="minimizeBtn" layoutX="1032.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="33.0" styleClass="minimize-btn" stylesheets="@../resources/style.css" text="_" />
+            <Label layoutX="10.0" layoutY="5.0" text="models.Car Management" />
          </children></AnchorPane>
       <BorderPane fx:id="mainMenu" layoutX="485.0" layoutY="26.0" prefHeight="606.0" prefWidth="1098.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="26.0">
          <left>
-            <VBox fx:id="sidebar" prefHeight="541.0" prefWidth="39.0" styleClass="sidebar" stylesheets="@style.css" BorderPane.alignment="CENTER" />
+            <VBox fx:id="sidebar" prefHeight="541.0" prefWidth="39.0" styleClass="sidebar" stylesheets="@../resources/style.css" BorderPane.alignment="CENTER" />
          </left>
          <top>
-            <AnchorPane fx:id="controlPanel" prefHeight="63.0" prefWidth="1098.0" styleClass="control-panel" stylesheets="@style.css" BorderPane.alignment="CENTER">
+            <AnchorPane fx:id="controlPanel" prefHeight="63.0" prefWidth="1098.0" styleClass="control-panel" stylesheets="@../resources/style.css" BorderPane.alignment="CENTER">
                <children>
                   <HBox layoutX="360.0" layoutY="12.0" prefHeight="39.0" prefWidth="378.0" spacing="5.0">
                      <children>
@@ -51,19 +51,19 @@
                   </Label>
                </children>
             </AnchorPane>
-            <Label layoutX="43.0" layoutY="67.0" text="Car Name">
+            <Label layoutX="43.0" layoutY="67.0" text="models.Car Name">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
             <TextField fx:id="carNameInput" layoutX="43.0" layoutY="87.0" />
-            <Label layoutX="43.0" layoutY="130.0" text="Car Make">
+            <Label layoutX="43.0" layoutY="130.0" text="models.Car Make">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
             <TextField fx:id="carMakeInput" layoutX="43.0" layoutY="150.0" />
-            <Label layoutX="43.0" layoutY="198.0" text="Car Year">
+            <Label layoutX="43.0" layoutY="198.0" text="models.Car Year">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>

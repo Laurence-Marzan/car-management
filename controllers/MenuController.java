@@ -1,12 +1,14 @@
+package controllers;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import models.Car;
 
 import java.io.*;
 import java.net.URL;
@@ -14,7 +16,7 @@ import java.util.ResourceBundle;
 
 public class MenuController implements Initializable
 {
-    private static final String DATA_FILE = "data.csv";
+    private static final String DATA_FILE = "resources/data.csv";
     ObservableList<Car> carsList;
     GridPane cardGrid;
     final int cols = 5;
@@ -60,7 +62,7 @@ public class MenuController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
-        mainLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+        mainLayout.getStylesheets().add(getClass().getResource("/resources/style.css").toExternalForm());
         cardGrid = new GridPane();
         cardGrid.getStyleClass().add("card-grid");
         contents.setContent(cardGrid);
@@ -118,7 +120,7 @@ public class MenuController implements Initializable
         cardGrid.getChildren().clear();
 
         for (int i = 0;i < dataSize;i++) {
-            Label nameLabel = new Label("Car: " + carsList.get(i).getName());
+            Label nameLabel = new Label("models.Car: " + carsList.get(i).getName());
             Label makeLabel = new Label("Make: " + carsList.get(i).getMake());
             Label yearLabel = new Label("Year: " + carsList.get(i).getYear());
 

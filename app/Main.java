@@ -1,3 +1,5 @@
+package app;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,7 +19,7 @@ public class Main extends Application
     public void start(Stage mainStage) throws Exception
     {
         stage = mainStage;
-        Parent root = FXMLLoader.load(getClass().getResource("Menu.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/views/Menu.fxml"));
         addDragListeners(root);
 
         Scene scene = new Scene(root);
