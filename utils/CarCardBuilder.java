@@ -1,30 +1,31 @@
 package utils;
 
+import controllers.CarCardController;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import models.Car;
 
+import java.io.IOException;
 import java.util.function.Consumer;
 
 public class CarCardBuilder
 {
-    public static VBox buildCard(Car car, Consumer<Integer> onDelete, Runnable onEdit) {
-        Label name = new Label("Car: " + car.getName());
-        Label make = new Label("Make: " + car.getMake());
-        Label year = new Label("Year: " + car.getYear());
+    public static AnchorPane buildCard(Car car, Consumer<Integer> onDelete, Runnable onEdit) {
+        try {
+            FXMLLoader loader = new FXMLLoader(CarCardBuilder.class.getResource("/views/components/CarCard.fxml"));
+            AnchorPane card = loader.load();
 
-        Button delete = new Button("Delete " + car.getId());
-        delete.setOnAction(e -> onDelete.accept(car.getId()));
+            CarCardController controller = loader.getController();
+            controller.setData(car, onDelete, onEdit);
 
-        Button edit = new Button("Edit");
-        edit.setOnAction(e -> onEdit.run());
-
-        HBox actions = new HBox(10, delete, edit);
-        VBox card = new VBox(name, make, year, actions);
-        card.getStyleClass().add("card");
-
-        return card;
+            return card;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new AnchorPane(); // fallback
+        }
     }
 }

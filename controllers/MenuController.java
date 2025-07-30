@@ -56,7 +56,7 @@ public class MenuController implements Initializable {
         cardGrid.getChildren().clear();
         for (int i = 0; i < carsList.size(); i++) {
             Car car = carsList.get(i);
-            VBox card = CarCardBuilder.buildCard(car, this::deleteData, () -> loadCarIntoForm(car));
+            AnchorPane card = CarCardBuilder.buildCard(car, this::deleteData, () -> loadCarIntoForm(car));
 
             int col = i % cols;
             int row = i / cols;
