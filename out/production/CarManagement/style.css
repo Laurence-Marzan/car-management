@@ -1,0 +1,54 @@
+.header {
+    -fx-background-color: lightGray;
+}
+
+.exit-btn {
+    -fx-background-color: transparent;
+}
+
+.exit-btn:hover{
+    -fx-background-color: red;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
+.minimize-btn {
+    -fx-background-color: transparent;
+}
+
+.minimize-btn:hover{
+    -fx-background-color: gray;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
+
+.control-panel {
+    -fx-background-color: #efefef;
+}
+
+.sidebar {
+    -fx-background-color: #fbfbfb;
+}
+
+.main {
+
+}
+
+.card-grid {
+    -fx-hgap: 15px;
+    -fx-vgap: 15px;
+    -fx-padding: 15px;
+}
+
+.card {
+    -fx-background-color: #ebebeb;
+    -fx-pref-height: 215px;
+    -fx-pref-width: 190px;
+    -fx-background-radius: 10px;
+    -fx-padding: 15px;
+    -fx-font-size: 16px;
+    -fx-alignment: center-left;
+    -fx-spacing: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0.3, 0, 2);
+}
