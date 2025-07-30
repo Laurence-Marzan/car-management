@@ -51,19 +51,19 @@
                   </Label>
                </children>
             </AnchorPane>
-            <Label layoutX="43.0" layoutY="67.0" text="models.Car Name">
+            <Label layoutX="43.0" layoutY="67.0" text="Car Name">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
             <TextField fx:id="carNameInput" layoutX="43.0" layoutY="87.0" />
-            <Label layoutX="43.0" layoutY="130.0" text="models.Car Make">
+            <Label layoutX="43.0" layoutY="130.0" text="Car Make">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
             <TextField fx:id="carMakeInput" layoutX="43.0" layoutY="150.0" />
-            <Label layoutX="43.0" layoutY="198.0" text="models.Car Year">
+            <Label layoutX="43.0" layoutY="198.0" text="Car Year">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
