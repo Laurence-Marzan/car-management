@@ -14,7 +14,7 @@ import java.util.function.Consumer;
 
 public class CarCardBuilder
 {
-    public static AnchorPane buildCard(Car car, Consumer<Integer> onDelete, Runnable onEdit) {
+    public static CardBundle buildCard(Car car, Consumer<Integer> onDelete, Runnable onEdit) {
         try {
             FXMLLoader loader = new FXMLLoader(CarCardBuilder.class.getResource("/views/components/CarCard.fxml"));
             AnchorPane card = loader.load();
@@ -22,10 +22,10 @@ public class CarCardBuilder
             CarCardController controller = loader.getController();
             controller.setData(car, onDelete, onEdit);
 
-            return card;
+            return new CardBundle(card, controller);
         } catch (IOException e) {
             e.printStackTrace();
-            return new AnchorPane(); // fallback
+            return new CardBundle(new AnchorPane(), null);
         }
     }
 }

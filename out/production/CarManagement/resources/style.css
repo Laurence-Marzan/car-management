@@ -52,3 +52,13 @@
     -fx-spacing: 10px;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0.3, 0, 2);
 }
+
+.popup-modal {
+    -fx-background-color: #fbfbfb;
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0.3, 0, 2);
+}
+
+.popup-modal-header {
+    -fx-background-color: #dbdbdb;
+}

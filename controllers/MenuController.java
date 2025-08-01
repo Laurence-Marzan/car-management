@@ -1,6 +1,5 @@
 package controllers;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,11 +7,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+
 import models.Car;
 import services.CarDataService;
 import utils.CarCardBuilder;
 import utils.CarValidator;
+import utils.CardBundle;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -21,6 +24,7 @@ public class MenuController implements Initializable {
     GridPane cardGrid;
     final int cols = 5;
     private Car carBeingEdited = null;
+    private final Map<Integer, CardBundle> carCardMap = new HashMap<>();
 
     @FXML private Button closeBtn;
     @FXML private AnchorPane mainLayout;
@@ -54,18 +58,35 @@ public class MenuController implements Initializable {
 
     public void generateCards() {
         cardGrid.getChildren().clear();
+        carCardMap.clear();
+
         for (int i = 0; i < carsList.size(); i++) {
             Car car = carsList.get(i);
-            AnchorPane card = CarCardBuilder.buildCard(car, this::deleteData, () -> loadCarIntoForm(car));
+            CardBundle bundle = CarCardBuilder.buildCard(
+                    car,
+                    this::deleteData,
+                    () -> loadCarIntoForm(findCarById(car.getId()))
+            );
 
             int col = i % cols;
             int row = i / cols;
-            cardGrid.add(card, col, row);
+
+            cardGrid.add(bundle.card, col, row);
+            carCardMap.put(car.getId(), bundle);
         }
+    }
+
+    private Car findCarById(int id) {
+        for (Car c : carsList) {
+            if (c.getId() == id) return c;
+        }
+        return null;
     }
 
     public void switchSection(ActionEvent event){
         if (event.getSource() == toCreateSection) {
+            clearForm();
+            carBeingEdited = null;
             mainMenu.setVisible(false);
             createSection.setVisible(true);
         } else if (event.getSource() == toMainMenu) {
@@ -85,21 +106,35 @@ public class MenuController implements Initializable {
         int carYear = Integer.parseInt(strCarYear);
 
         if (carBeingEdited == null) {
-            // Creating a new car
+            // Create a new car
             int id = carsList.isEmpty() ? 1 : carsList.get(carsList.size() - 1).getId() + 1;
             Car newCar = new Car(id, carName, carMake, carYear);
             carsList.add(newCar);
+
+            CardBundle bundle = CarCardBuilder.buildCard(newCar, this::deleteData, () -> loadCarIntoForm(newCar));
+            int index = carsList.size() - 1;
+            int col = index % cols;
+            int row = index / cols;
+            cardGrid.add(bundle.card, col, row);
+
+            carCardMap.put(newCar.getId(), bundle);
         } else {
-            // Editing an existing car
+            // Edit existing car
             carBeingEdited.setName(carName);
             carBeingEdited.setMake(carMake);
             carBeingEdited.setYear(carYear);
+
+            CardBundle bundle = carCardMap.get(carBeingEdited.getId());
+            if (bundle.controller != null) {
+                bundle.controller.updateCar(carBeingEdited);
+                bundle.controller.highlightUpdate();
+            }
+
             carBeingEdited = null;
         }
 
         CarDataService.saveCars(carsList);
         clearForm();
-        generateCards();
 
         mainMenu.setVisible(true);
         createSection.setVisible(false);
@@ -107,9 +142,34 @@ public class MenuController implements Initializable {
 
     public void deleteData(int id) {
         if (!confirmationAlert("delete")) return;
+
         carsList.removeIf(car -> car.getId() == id);
+
+        CardBundle bundle = carCardMap.get(id);
+        if (bundle != null) {
+            cardGrid.getChildren().remove(bundle.card);
+            carCardMap.remove(id);
+
+            // Maintain compact grid
+            rearrangeCards();
+        }
+
         CarDataService.saveCars(carsList);
-        generateCards();
+    }
+
+    private void rearrangeCards() {
+        cardGrid.getChildren().clear();
+
+        int i = 0;
+        for (Car car : carsList) {
+            CardBundle bundle = carCardMap.get(car.getId());
+            if (bundle != null) {
+                int col = i % cols;
+                int row = i / cols;
+                cardGrid.add(bundle.card, col, row);
+                i++;
+            }
+        }
     }
 
     private void loadCarIntoForm(Car car) {

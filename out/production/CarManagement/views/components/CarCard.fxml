@@ -4,7 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane styleClass="card" stylesheets="@../../resources/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CarCardController">
+<AnchorPane fx:id="rootPane" styleClass="card" stylesheets="@../../resources/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CarCardController">
    <children>
       <Label fx:id="nameLabel" layoutX="21.0" layoutY="22.0" />
       <Label fx:id="makeLabel" layoutX="21.0" layoutY="70.0" />
